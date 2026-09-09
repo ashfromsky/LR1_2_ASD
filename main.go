@@ -1,24 +1,33 @@
 package main
 
-import (
-	"fmt"
-	"math"
-)
+import "fmt"
 
-const eps = 1e-9
-
-func main() {
-	testVars := []float64{-5, -1, -0.5, 0, 4, 8, 12, 16, 25}
-
+func runProgram1(testVars []int) {
+	fmt.Println("=== Програма 1 (Одиничні порівняння) ===")
 	for _, x := range testVars {
-		y1, ok1 := calcSimpleComparisons(x)
-		y2, ok2 := calcBoolLogic(x)
-		matched := (ok1 == ok2) && (!ok1 || math.Abs(y1-y2) < eps)
-
-		if ok1 {
-			fmt.Println(x, ":", y1, ":", y2, ":", matched)
+		y, ok := calcSimpleComparisons(float64(x))
+		if ok {
+			fmt.Println("x = %3d  -->  y = %8.3f\n", x, y)
 		} else {
-			fmt.Println(x, ": функція не існує :", matched)
+			fmt.Println("x = %3d  -->  функція не існує\n", x, y)
 		}
 	}
+}
+
+func runProgram2(testVars []int) {
+	fmt.Println("=== Програма 2 (Булеві операції) ===")
+	for _, x := range testVars {
+		y, ok := calcBoolLogic(float64(x))
+		if ok {
+			fmt.Println("x = %3d  -->  y = %8.3f\n", x, y)
+		} else {
+			fmt.Println("x = %3d  -->  функція не існує\n", x, y)
+		}
+	}
+}
+
+func main() {
+	testVars := []int{-5, -2, -1, 0, 4, 8, 9, 12, 15, 16, 25}
+	runProgram1(testVars)
+	runProgram2(testVars)
 }
